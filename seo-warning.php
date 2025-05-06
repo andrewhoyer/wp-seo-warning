@@ -1,7 +1,7 @@
 <?php
 /*
 
-	SEO Warning - Adds admin toolbar warning when indexing is off
+	SEO Warning - Adds an admin toolbar warning when indexing is off
 	Copyright (C) 2025 Andrew Hoyer
 
 	This program is free software: you can redistribute it and/or modify
@@ -18,39 +18,40 @@
 	along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 	* Plugin Name:       SEO Warning
-	* Plugin URI:        https://andrewhoyer.com
-	* Description:       Adds admin toolbar warning when site indexing is discouraged
+	* Plugin URI:        https://andrewhoyer.com/seo-warning/
+	* Description:       Adds an admin toolbar warning when site indexing is discouraged.
 	* Version:           0.1
 	* Author:            Andrew Hoyer
 	* Author URI:        https://andrewhoyer.com
 	* License:           GPL-3.0
 	* License URI:       https://www.gnu.org/licenses/gpl-3.0.html#license-text
-	* Text Domain:       wp-seo-warning
-	* Domain Path:       /languages
+	* Text Domain:       seo-warning
 	* Requires at least: 5.2
 	* Requires PHP:      7.0
 
 */
 
-
-// Only add the admin menu item if the no-index option is set.
+// Only add the admin menu item if the site settings do not allow indexing.
+// More specifically, if the "Search engine visibility" checkbox is checked
+// on the Settings > Reading page.
 if (get_option('blog_public') == '0') {
-    add_filter( 'admin_bar_menu', 'add_seo_warning_to_admin_bar_menu', 100 );
+    add_filter('admin_bar_menu', 'add_seo_warning_to_admin_bar_menu', 9);
 }
 
-function add_seo_warning_to_admin_bar_menu( $wp_admin_bar ) {
+function add_seo_warning_to_admin_bar_menu($wp_admin_bar) {
     
-    $wp_admin_bar->add_node( array(
-        'id'    => 'wp-seo-warning',
-        'title' => '🚨 SEO',
-        'href'  => home_url( '/wp-admin/options-reading.php' ),
-        'meta'  => array(
-            'class' => 'wp-seo-warning',
-            'title' => 'Site does not allow indexing',
-        ),
-    ) );
+    $wp_admin_bar->add_node( 
+		array(
+        	'id'    => 'seo-warning',
+        	'title' => '🚨 SEO',
+        	'href'  => home_url('/wp-admin/options-reading.php'),
+        	'meta'  => array(
+            	'class' => 'seo-warning',
+            	'title' => 'Site does not allow indexing',
+        	),
+    	)
+	);
 
 }
-
 
 ?>
