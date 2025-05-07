@@ -35,7 +35,7 @@
 // More specifically, if the "Search engine visibility" checkbox is checked
 // on the Settings > Reading page.
 if (get_option('blog_public') == '0') {
-    add_filter('admin_bar_menu', 'add_seo_warning_to_admin_bar_menu', 9);
+    add_filter('admin_bar_menu', 'add_seo_warning_to_admin_bar_menu', 35);
 }
 
 function add_seo_warning_to_admin_bar_menu($wp_admin_bar) {
